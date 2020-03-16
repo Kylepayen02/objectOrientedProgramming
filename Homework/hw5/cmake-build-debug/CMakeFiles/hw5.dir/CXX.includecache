@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/kylepayen/Desktop/NYU/Spring_2020/Object_Oriented_Programming/Homework/hw5/hw05.cpp
+iostream
+-
+vector
+-
+string
+-
+fstream
+-
+

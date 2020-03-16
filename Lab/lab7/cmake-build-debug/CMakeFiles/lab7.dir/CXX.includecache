@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/kylepayen/Desktop/NYU/Spring_2020/Object_Oriented_Programming/Lab/lab7/main.cpp
+iostream
+-
+string
+-
+vector
+-
+

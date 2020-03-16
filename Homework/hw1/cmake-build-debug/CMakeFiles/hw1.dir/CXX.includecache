@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/kylepayen/Desktop/NYU/CS 2124 /Homework/hw1/hw01.cpp
+vector
+-
+string
+-
+iostream
+-
+fstream
+-
+
