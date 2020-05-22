@@ -158,7 +158,7 @@ ostream& operator<<(ostream& os, const Student& rhs){
         os << "No courses";
     }
     else{
-        for (const Course* const course : rhs.courses){
+        for (const Course* course : rhs.courses){
         os << course->getName() << " ";
         }
     }

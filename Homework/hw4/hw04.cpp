@@ -23,8 +23,8 @@ public:
     Warrior(const string& name, int strength): warriorName(name), warriorStrength(strength), hired(false), alive(true) {};
 
     // getters
-    int getStrength(){return warriorStrength;}
-    string getName(){return warriorName;}
+    int getStrength() const {return warriorStrength;}
+    string getName() const {return warriorName;}
 
     void changeStrength(double ratio){
         warriorStrength -= (warriorStrength * ratio);
@@ -46,6 +46,7 @@ public:
 
     void killed(){
         alive = false;
+        warriorStrength = 0;
     }
 
 private:
@@ -68,8 +69,8 @@ public:
     Noble(const string& name) : nobleName(name), strength(0), alive(true){};
 
     // getters
-    string getName() {return nobleName;}
-    int getStrength() {return strength;}
+    string getName() const {return nobleName;}
+    int getStrength() const {return strength;}
 
     void changeStrength(double ratio){ // this function will change the strength of each warrior
         strength = 0;
@@ -99,25 +100,33 @@ public:
         firedWarrior.fired();
         strength -= firedWarrior.getStrength();
         bool moveWarriors = false;
-        for(size_t j = 0; j < warriorArmy.size(); ++j){
+        for(size_t j = 0; j < warriorArmy.size(); ++j){ // iterate through the vector of warrior pointers
             // if we found the warrior to remove, set bool to true
             // move the rest of the vector over one and delete
-            if (warriorArmy[j] == &firedWarrior){
-                moveWarriors = true;
-            }
+            // if (warriorArmy[j] == &firedWarrior){
+            //     moveWarriors = true;
+            // }
 
-            if (j == (warriorArmy.size()-1)){
-                warriorArmy.pop_back();
-                break;
-            }
+            // if (j == (warriorArmy.size()-1)){
+            //     warriorArmy.pop_back();
+            //     break;
+            // }
 
-            else if (moveWarriors == true){
-                warriorArmy[j] = warriorArmy[j+1];
+            // else if (moveWarriors == true){
+            //     warriorArmy[j] = warriorArmy[j+1];
+            // }
+            if (warriorArmy[j] == &firedWarrior){ // if the warrior pointer address is the same address as the firedWarrior
+                Warrior* lastWarrior = warriorArmy[warriorArmy.size() - 1]; 
+                warriorArmy[warriorArmy.size() - 1] = warriorArmy[j];
+                warriorArmy[j] = lastWarrior;   // swap the pointer in the back of the vector with the current pointer
+                warriorArmy.pop_back();  // remove the fired warrior pointer from the vector 
+                cout << "You don't work for me anymore ";
+                cout << firedWarrior.getName() << "! -- " << nobleName << endl;
+                return true;
             }
         }
-        cout << "You don't work for me anymore ";
-        cout << firedWarrior.getName() << "! -- " << nobleName << endl;
-        return true;
+        return false; // else the fired warrior was not in the warrior army, fail silently
+        
     }
 
     void killed(){
@@ -129,7 +138,7 @@ public:
         }
     }
 
-    bool isAlive(){return alive;};
+    bool isAlive(){return alive;}
 
     void battle(Noble& opponent){
         cout << nobleName << " battles " << opponent.getName() << endl;
@@ -152,8 +161,7 @@ public:
 
             // opponent defeats Noble
         else if (opponent.getStrength() > strength){
-            double ratio = (double(strength) /
-                                   double(opponent.getStrength()));
+            double ratio = (double(strength) / double(opponent.getStrength() ) );
             opponent.changeStrength(ratio);
             killed();
             cout << opponent.getName() << " defeats " << nobleName << endl;
@@ -162,8 +170,7 @@ public:
 
             // Noble defeats opponent
         else if (opponent.getStrength() < strength){
-            double ratio = (double(opponent.getStrength()) /
-                                   double(strength));
+            double ratio = (double(opponent.getStrength()) / double(strength));
             changeStrength(ratio);
             opponent.killed();
             cout << nobleName<< " defeats " << opponent.getName() << endl;
